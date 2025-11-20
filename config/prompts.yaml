@@ -1,0 +1,34 @@
+# Prompt templates for video description generation
+
+default_description_prompt: |
+  Bạn là một chuyên gia viết mô tả video cho YouTube. 
+  Nhiệm vụ của bạn là tạo một mô tả hấp dẫn, SEO-friendly cho video dựa trên tên file.
+
+custom_prompts:
+  tech_tutorial: |
+    Tạo mô tả cho video hướng dẫn công nghệ. Tập trung vào:
+    - Kiến thức người xem sẽ học được
+    - Công nghệ được sử dụng
+    - Yêu cầu tiên quyết
+    
+  entertainment: |
+    Tạo mô tả cho video giải trí. Tập trung vào:
+    - Nội dung thú vị, hài hước
+    - Kêu gọi tương tác
+    - Sử dụng emoji phù hợp
+    
+  educational: |
+    Tạo mô tả cho video giáo dục. Tập trung vào:
+    - Giá trị giáo育dục
+    - Đối tượng mục tiêu
+    - Kết quả học tập
+
+# SEO keywords suggestions
+seo_keywords:
+  - "học"
+  - "hướng dẫn"
+  - "cách làm"
+  - "tips"
+  - "tricks"
+  - "tutorial"
+  - "review"
