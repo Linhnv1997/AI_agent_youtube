@@ -1,0 +1,96 @@
+# ===================================
+# APPLICATION CONFIGURATION
+# ===================================
+# File này chứa các cấu hình không nhạy cảm
+# API keys được quản lý trong file .env
+
+# LLM Configuration
+llm:
+  provider: gemini  # openai hoặc gemini
+  model: gemini-2.5-flash  # Khuyến nghị: gemini-2.5-flash (stable, fast, free)
+  temperature: 0.7
+  max_description_length: 5000
+  
+  # Models khác có thể dùng:
+  # - gemini-2.5-pro: Chất lượng cao nhất
+  # - gemini-2.0-flash: Nhanh hơn
+  # - gemini-flash-latest: Auto update to latest
+  
+  # Available models
+  available_models:
+    gemini:
+      - gemini-2.0-flash-exp  # Recommended: Nhanh nhất, chất lượng cao
+      - gemini-1.5-flash       # Backup: Ổn định
+      - gemini-1.5-pro         # Premium: Chất lượng tốt nhất
+    openai:
+      - gpt-4-turbo-preview
+      - gpt-4
+      - gpt-3.5-turbo
+
+# Video Configuration
+video:
+  folder_path: ./data/videos
+  supported_formats:
+    - mp4
+    - avi
+    - mov
+    - mkv
+    - flv
+    - wmv
+  max_file_size_mb: 5000  # 5GB (YouTube limit)
+
+# Upload Schedule
+schedule:
+  upload_time: "09:00"  # HH:MM format (24-hour)
+  timezone: "Asia/Ho_Chi_Minh"
+  
+# YouTube Settings
+youtube:
+  # Channel Configuration
+  # Để trống hoặc không set thì upload lên kênh mặc định của tài khoản đang đăng nhập
+  # Nếu có nhiều kênh, set channel_id cụ thể
+  channel_id: "UCsJMu0NAarjdopqP9Whh63A"  # Để trống = kênh mặc định, hoặc điền: UCxxx...
+  
+  # Video Settings
+  default_category: "22"  # People & Blogs (xem danh sách bên dưới)
+  privacy_status: public  # public, private, unlisted
+  made_for_kids: false
+  auto_levels: true
+  stabilize: false
+  
+  # YouTube Categories:
+  # 1: Film & Animation, 2: Autos & Vehicles, 10: Music
+  # 15: Pets & Animals, 17: Sports, 19: Travel & Events
+  # 20: Gaming, 22: People & Blogs, 23: Comedy
+  # 24: Entertainment, 25: News & Politics, 26: Howto & Style
+  # 27: Education, 28: Science & Technology
+
+# Logging Configuration
+logging:
+  level: INFO  # DEBUG, INFO, WARNING, ERROR
+  file: ./logs/app.log
+  rotation: "1 day"
+  retention: "7 days"
+  format: "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>"
+
+# Description Template Settings
+description:
+  min_length: 200
+  max_length: 5000
+  include_hashtags: true
+  max_hashtags: 5
+  include_call_to_action: true
+  language: vi  # vi (Vietnamese) or en (English)
+
+# Retry Configuration
+retry:
+  max_attempts: 3
+  backoff_factor: 2
+  max_delay: 60
+
+# Feature Flags
+features:
+  auto_upload: true
+  generate_thumbnail: false  # Future feature
+  auto_translate: false      # Future feature
+  analytics: false           # Future feature

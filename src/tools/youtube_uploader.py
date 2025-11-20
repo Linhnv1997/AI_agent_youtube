@@ -75,7 +75,7 @@ class YouTubeUploader:
         title: str,
         description: str,
         tags: list[str],
-        category_id: str = "22",  # People & Blogs
+        category_id: str = "22",
         privacy_status: str = "public"
     ) -> Optional[Dict[str, Any]]:
         """

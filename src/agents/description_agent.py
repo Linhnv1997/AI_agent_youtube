@@ -4,7 +4,8 @@ AI Agent for generating video descriptions using LLM
 from pathlib import Path
 from typing import Dict, Any
 from langchain_openai import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from loguru import logger
 
@@ -12,12 +13,42 @@ from loguru import logger
 class DescriptionAgent:
     """Agent tạo mô tả video bằng LLM"""
     
-    def __init__(self, api_key: str, model: str = "gpt-4", temperature: float = 0.7):
-        self.llm = ChatOpenAI(
-            api_key=api_key,
-            model=model,
-            temperature=temperature
-        )
+    def __init__(
+        self, 
+        provider: str = "gemini",
+        api_key: str = "",
+        model: str = "gemini-pro", 
+        temperature: float = 0.7
+    ):
+        """
+        Initialize Description Agent
+        
+        Args:
+            provider: "openai" hoặc "gemini"
+            api_key: API key tương ứng
+            model: Model name
+            temperature: Temperature cho LLM
+        """
+        self.provider = provider.lower()
+        
+        # Initialize LLM based on provider
+        if self.provider == "openai":
+            self.llm = ChatOpenAI(
+                api_key=api_key,
+                model=model,
+                temperature=temperature
+            )
+            logger.info(f"✅ Initialized OpenAI LLM: {model}")
+        elif self.provider == "gemini":
+            self.llm = ChatGoogleGenerativeAI(
+                google_api_key=api_key,
+                model=model,
+                temperature=temperature
+            )
+            logger.info(f"✅ Initialized Gemini LLM: {model}")
+        else:
+            raise ValueError(f"Unsupported LLM provider: {provider}")
+        
         self.prompt_template = self._create_prompt_template()
         self.chain = self.prompt_template | self.llm | StrOutputParser()
     

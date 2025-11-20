@@ -31,15 +31,21 @@ class YouTubeUploadWorkflow:
     
     def __init__(self, settings: Settings):
         self.settings = settings
+        
+        # Select API key based on provider
+        api_key = (settings.GOOGLE_API_KEY if settings.LLM_PROVIDER == "gemini" 
+                   else settings.OPENAI_API_KEY)
+        
         self.description_agent = DescriptionAgent(
-            api_key=settings.OPENAI_API_KEY,
+            provider=settings.LLM_PROVIDER,
+            api_key=api_key,
             model=settings.LLM_MODEL,
             temperature=settings.LLM_TEMPERATURE
         )
         self.youtube_uploader = YouTubeUploader(
             client_id=settings.YOUTUBE_CLIENT_ID,
             client_secret=settings.YOUTUBE_CLIENT_SECRET
-        )
+        ) if settings.YOUTUBE_CLIENT_ID else None
         self.file_manager = VideoFileManager(settings.VIDEO_FOLDER_PATH)
         self.workflow = self._build_workflow()
     
@@ -91,12 +97,20 @@ class YouTubeUploadWorkflow:
             logger.info("🚀 Uploading video to YouTube...")
             
             try:
+                if not self.youtube_uploader:
+                    logger.warning("⚠️ YouTube uploader not configured. Skipping upload.")
+                    state["error"] = "YouTube credentials not configured"
+                    state["status"] = "error"
+                    return state
+                
                 video_path = Path(state["video_path"])
                 result = self.youtube_uploader.upload_video(
                     video_path=video_path,
                     title=state["title"],
                     description=state["description"],
-                    tags=state["tags"]
+                    tags=state["tags"],
+                    category_id=self.settings.YOUTUBE_CATEGORY,
+                    privacy_status=self.settings.YOUTUBE_PRIVACY_STATUS
                 )
                 
                 if result:

@@ -13,8 +13,8 @@ def setup_logging(settings: Settings):
     """Cấu hình logging"""
     logger.add(
         settings.LOG_FILE,
-        rotation="1 day",
-        retention="7 days",
+        rotation=settings.LOG_ROTATION,
+        retention=settings.LOG_RETENTION,
         level=settings.LOG_LEVEL,
     )
 

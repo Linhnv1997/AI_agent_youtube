@@ -1,0 +1,21 @@
+📺 CHỌN KÊNH YOUTUBE - HƯỚNG DẪN NHANH
+=====================================
+
+1️⃣ XEM CÁC KÊNH CỦA BẠN:
+   $ python3 list_youtube_channels.py
+
+2️⃣ COPY CHANNEL ID:
+   Channel ID: UCxxxxxxxxxxxxxxxxxxx
+
+3️⃣ THÊM VÀO CONFIG:
+   $ nano config/settings.yaml
+   
+   Thêm dòng:
+   youtube:
+     channel_id: "UCxxxxxxxxxxxxxxxxxxx"
+
+4️⃣ HOẶC ĐỂ TRỐNG = KÊNH MẶC ĐỊNH:
+   youtube:
+     channel_id: ""
+
+📚 Chi tiết: YOUTUBE_CHANNEL_SELECTION.md
