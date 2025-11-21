@@ -5,10 +5,12 @@ Dự án AI Agent tự động đăng video lên YouTube mỗi ngày với mô t
 ## Tính năng
 
 - 🤖 Sử dụng LangGraph để xây dựng workflow AI agent
-- 📝 Tự động tạo mô tả video bằng LLM dựa trên tên file
+- 📝 Tự động tạo mô tả video bằng LLM (hỗ trợ OpenAI + Google Gemini)
+- 🎨 **Custom Prompts** - Tùy chỉnh prompts theo loại video (tech, entertainment, educational)
 - 📅 Lên lịch đăng video hàng ngày
 - 🎥 Quản lý hàng đợi video từ folder
-- 📊 Logging và tracking
+- 📺 Chọn kênh YouTube cụ thể để upload
+- 📊 Logging và tracking chi tiết
 
 ## Cấu trúc dự án
 
@@ -48,9 +50,47 @@ VIDEO_FOLDER_PATH=path_to_your_videos
 
 ## Sử dụng
 
+### 🚀 Quick Start
+
 ```bash
-python main.py
+# Test LLM description generation
+python3 test_description.py
+
+# Xác thực YouTube (chỉ lần đầu)
+python3 list_youtube_channels.py
+
+# Chạy upload workflow
+python3 main.py
 ```
+
+### 📝 Custom Prompts
+
+Tùy chỉnh cách AI tạo mô tả video trong `config/settings.yaml`:
+
+```yaml
+description:
+  prompt_type: tech_tutorial  # default, tech_tutorial, entertainment, educational
+```
+
+Xem chi tiết: [PROMPTS_GUIDE.md](./PROMPTS_GUIDE.md)
+
+### 🎯 Chọn Kênh YouTube
+
+Nếu bạn quản lý nhiều kênh YouTube:
+
+```yaml
+youtube:
+  channel_id: "UCxxxxxxxxx"  # Để trống = kênh mặc định
+```
+
+Chi tiết: [YOUTUBE_CHANNEL_SELECTION.md](./YOUTUBE_CHANNEL_SELECTION.md)
+
+## 📚 Documentation
+
+- [SETUP_GUIDE.md](./SETUP_GUIDE.md) - Hướng dẫn cài đặt chi tiết
+- [PROMPTS_GUIDE.md](./PROMPTS_GUIDE.md) - Hướng dẫn tùy chỉnh prompts
+- [GEMINI_MODELS.md](./GEMINI_MODELS.md) - Danh sách Gemini models
+- [CONFIG_STRUCTURE.md](./CONFIG_STRUCTURE.md) - Cấu trúc config files
 
 ## License
 

@@ -81,6 +81,11 @@ description:
   max_hashtags: 5
   include_call_to_action: true
   language: vi  # vi (Vietnamese) or en (English)
+  
+  # Prompt Type Selection
+  # Options: default, tech_tutorial, entertainment, educational, toeic_part_youtube
+  # Xem chi tiết các prompt trong config/prompts.yaml
+  prompt_type: toeic_part_youtube
 
 # Retry Configuration
 retry:
@@ -91,6 +96,6 @@ retry:
 # Feature Flags
 features:
   auto_upload: true
-  generate_thumbnail: false  # Future feature
+  generate_thumbnail: true   # ✅ Tự động tạo thumbnail với title
   auto_translate: false      # Future feature
   analytics: false           # Future feature

@@ -17,12 +17,62 @@ custom_prompts:
     - Kêu gọi tương tác
     - Sử dụng emoji phù hợp
     
-  educational: |
-    Tạo mô tả cho video giáo dục. Tập trung vào:
-    - Giá trị giáo育dục
-    - Đối tượng mục tiêu
-    - Kết quả học tập
+  toeic_part_youtube: |
+    Bạn là một chuyên gia viết mô tả video cho YouTube về luyện thi TOEIC.
+    Nhiệm vụ của bạn là tạo TIÊU ĐỀ và MÔ TẢ hấp dẫn cho video TOEIC dựa trên chủ đề được trích xuất từ tên video.
+    
+    Tên video: {video_name}
+    
+    Hãy tạo output theo format CHÍNH XÁC sau:
+    
+    BƯỚC 1 - Tạo TIÊU ĐỀ (dòng đầu tiên):
+    🔥 [TOEIC PART 3] Luyện Nghe Tiếng Anh Song Ngữ - Chủ đề [CHỦ_ĐỀ_TỪ_VIDEO_NAME] 🔥
+    
+    BƯỚC 2 - Tạo MÔ TẢ CHI TIẾT theo template ví dụ về Banking:
+    
+    Bạn đang ôn luyện TOEIC và muốn cải thiện khả năng nghe? Đây chính là video dành cho bạn!
+    
+    📚 Nội dung video:
 
+    Bài nghe được thiết kế với phương pháp đặc biệt:
+    1️⃣ Lần đầu tiên: Nghe đoạn hội thoại không có phụ đề để rèn luyện khả năng tập trung.
+    2️⃣ Lần thứ hai: Nghe lại với phụ đề tiếng Việt để hiểu rõ nội dung và ý nghĩa.
+    3️⃣ Lần cuối cùng: Nghe lại toàn bộ với phụ đề tiếng Anh, giúp bạn ôn tập và ghi nhớ.
+
+    📌 Chủ đề chính: Banking (Ngân Hàng)
+
+    Các tình huống giao tiếp phổ biến như mở tài khoản ngân hàng, gửi và rút tiền, tư vấn khoản vay, giải quyết vấn đề thẻ tín dụng, và thực hiện giao dịch trực tuyến.
+    Từ vựng và cấu trúc câu thường gặp trong lĩnh vực ngân hàng, giúp bạn tự tin khi giao tiếp tại ngân hàng hoặc trong công việc tài chính.
+    🌟 Lợi ích của video:
+
+    ✅ Luyện nghe và hiểu tiếng Anh trong lĩnh vực ngân hàng một cách dễ dàng và tự nhiên.
+    ✅ Cải thiện vốn từ vựng, ngữ pháp và khả năng giao tiếp tiếng Anh trong các tình huống thực tế khi làm việc hoặc giao dịch tại ngân hàng.
+    ✅ Phù hợp với mọi trình độ, đặc biệt là người đang ôn thi TOEIC hoặc làm việc trong ngành ngân hàng, tài chính.
+
+    🎯 Ai nên xem video này?
+
+    🏦 Người đang luyện thi TOEIC, đặc biệt là Part 3 (Đoạn hội thoại).
+    🏦 Nhân viên ngân hàng, kế toán, chuyên viên tài chính hoặc nhà quản lý muốn nâng cao kỹ năng tiếng Anh chuyên ngành.
+    🏦 Người học tiếng Anh muốn luyện nghe hiệu quả qua các tình huống thực tế về giao dịch tài chính hàng ngày.
+
+    🚀 Cùng chinh phục tiếng Anh với Song Ngữ Việt Anh!
+
+    📺 Đừng quên ghé thăm kênh YouTube Song Ngữ Việt Anh để khám phá thêm nhiều video luyện nghe TOEIC hiệu quả:
+    👉    / @song-ngu-viet-anh  
+
+    📌 Hashtags:
+    #TOEIC #Banking #LuyenNghe #HocTiengAnh #SongNgu #OnThiTOEIC #TiengAnhGiaoTiep #HocHayTikTok #LuyenNgheTiengAnh #SongNguVietAnh #ToeicPart3 #NgheKemPhuDe
+    
+    ---
+    
+    LƯU Ý QUAN TRỌNG:
+    - Thay thế "Banking (Ngân Hàng)" bằng chủ đề được trích xuất từ {video_name}
+    - Điều chỉnh các tình huống và từ vựng cho phù hợp với chủ đề mới
+    - Giữ nguyên cấu trúc, format, emoji và phong cách viết
+    - Tạo hashtags phù hợp với chủ đề mới
+    - Luôn bao gồm link kênh: / @song-ngu-viet-anh
+    
+    Hãy tạo mô tả hoàn chỉnh theo format trên cho video về chủ đề từ {video_name}.
 # SEO keywords suggestions
 seo_keywords:
   - "học"

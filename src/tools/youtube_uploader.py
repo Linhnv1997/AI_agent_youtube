@@ -16,7 +16,10 @@ import pickle
 class YouTubeUploader:
     """Xử lý upload video lên YouTube"""
     
-    SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
+    SCOPES = [
+        'https://www.googleapis.com/auth/youtube.upload',
+        'https://www.googleapis.com/auth/youtube'
+    ]
     
     def __init__(self, client_id: str, client_secret: str):
         self.client_id = client_id
@@ -143,3 +146,36 @@ class YouTubeUploader:
         except Exception as e:
             logger.error(f"❌ Error uploading video: {e}")
             return None
+    
+    def upload_thumbnail(self, video_id: str, thumbnail_path: Path) -> bool:
+        """
+        Upload thumbnail cho video
+        
+        Args:
+            video_id: ID của video trên YouTube
+            thumbnail_path: Đường dẫn đến thumbnail image
+        
+        Returns:
+            True nếu thành công, False nếu thất bại
+        """
+        try:
+            if not thumbnail_path.exists():
+                logger.error(f"❌ Thumbnail not found: {thumbnail_path}")
+                return False
+            
+            logger.info(f"📷 Uploading thumbnail for video {video_id}...")
+            
+            # Upload thumbnail
+            request = self.youtube.thumbnails().set(
+                videoId=video_id,
+                media_body=MediaFileUpload(str(thumbnail_path))
+            )
+            
+            response = request.execute()
+            
+            logger.success(f"✅ Thumbnail uploaded successfully")
+            return True
+            
+        except Exception as e:
+            logger.error(f"❌ Error uploading thumbnail: {e}")
+            return False

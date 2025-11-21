@@ -128,12 +128,22 @@ class Settings(BaseSettings):
     def DESCRIPTION_LANGUAGE(self) -> str:
         return self._config.get('description', {}).get('language', 'vi')
     
+    @property
+    def DESCRIPTION_PROMPT_TYPE(self) -> str:
+        """Loại prompt: default, tech_tutorial, entertainment, educational"""
+        return self._config.get('description', {}).get('prompt_type', 'default')
+    
     # ============================================
     # Feature Flags
     # ============================================
     @property
     def AUTO_UPLOAD_ENABLED(self) -> bool:
         return self._config.get('features', {}).get('auto_upload', True)
+    
+    @property
+    def AUTO_GENERATE_THUMBNAIL(self) -> bool:
+        """Tự động tạo thumbnail cho video"""
+        return self._config.get('features', {}).get('generate_thumbnail', True)
     
     def get_config(self, key: str, default: Any = None) -> Any:
         """Get any config value by key (supports nested keys like 'llm.model')"""

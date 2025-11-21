@@ -14,7 +14,6 @@ from src.utils.config import Settings
 from src.utils.file_manager import VideoFileManager
 from loguru import logger
 
-
 async def test_description_generation():
     """Test tạo mô tả video"""
     try:
@@ -53,12 +52,13 @@ async def test_description_generation():
             logger.info(f"Hãy thêm video vào: {settings.VIDEO_FOLDER_PATH}")
             
             # Test với video giả định
-            logger.info("\n📝 Testing với tên video mẫu...")
-            test_video = Path("Hướng dẫn học Python cho người mới bắt đầu.mp4")
+            logger.info(f"\n📝 Testing với tên video mẫu (prompt: {settings.DESCRIPTION_PROMPT_TYPE})...")
+            test_video = Path("Shopping_Mall.mp4")  # TOEIC topic example
             
             result = await agent.generate_description(
                 video_path=test_video,
-                additional_context="Video hướng dẫn lập trình Python cơ bản"
+                additional_context="",
+                prompt_type=settings.DESCRIPTION_PROMPT_TYPE
             )
             
             logger.success("\n✅ Kết quả test:")
@@ -68,11 +68,13 @@ async def test_description_generation():
             
         else:
             logger.info(f"📹 Tìm thấy video: {video.name}")
+            logger.info(f"� Prompt type: {settings.DESCRIPTION_PROMPT_TYPE}")
             logger.info("🔄 Đang tạo mô tả...")
             
             result = await agent.generate_description(
                 video_path=video,
-                additional_context=""
+                additional_context="",
+                prompt_type=settings.DESCRIPTION_PROMPT_TYPE
             )
             
             logger.success("\n✅ Tạo mô tả thành công!")

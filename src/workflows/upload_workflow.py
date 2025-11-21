@@ -13,6 +13,7 @@ from src.agents.description_agent import DescriptionAgent
 from src.tools.youtube_uploader import YouTubeUploader
 from src.utils.file_manager import VideoFileManager
 from src.utils.config import Settings
+from src.utils.thumbnail_generator import ThumbnailGenerator
 
 
 class WorkflowState(TypedDict):
@@ -47,6 +48,7 @@ class YouTubeUploadWorkflow:
             client_secret=settings.YOUTUBE_CLIENT_SECRET
         ) if settings.YOUTUBE_CLIENT_ID else None
         self.file_manager = VideoFileManager(settings.VIDEO_FOLDER_PATH)
+        self.thumbnail_generator = ThumbnailGenerator()
         self.workflow = self._build_workflow()
     
     def _build_workflow(self) -> StateGraph:
@@ -75,9 +77,13 @@ class YouTubeUploadWorkflow:
             
             try:
                 video_path = Path(state["video_path"])
+                prompt_type = self.settings.DESCRIPTION_PROMPT_TYPE
+                logger.info(f"📝 Using prompt type: {prompt_type}")
+                
                 result = await self.description_agent.generate_description(
                     video_path=video_path,
-                    additional_context=""
+                    additional_context="",
+                    prompt_type=prompt_type
                 )
                 
                 state["title"] = result["title"]
@@ -115,6 +121,30 @@ class YouTubeUploadWorkflow:
                 
                 if result:
                     state["upload_result"] = result
+                    video_id = result.get('video_id')
+                    
+                    # Generate and upload thumbnail
+                    if video_id and self.settings.AUTO_GENERATE_THUMBNAIL:
+                        try:
+                            logger.info("📷 Generating thumbnail...")
+                            thumbnail_path = self.thumbnail_generator.create_thumbnail(
+                                title=state["title"],
+                                video_name=video_path.name
+                            )
+                            
+                            # Upload thumbnail
+                            thumbnail_uploaded = self.youtube_uploader.upload_thumbnail(
+                                video_id=video_id,
+                                thumbnail_path=thumbnail_path
+                            )
+                            
+                            if thumbnail_uploaded:
+                                logger.success("✅ Thumbnail uploaded!")
+                            
+                        except Exception as e:
+                            logger.warning(f"⚠️ Could not upload thumbnail: {e}")
+                            # Don't fail the whole upload if thumbnail fails
+                    
                     state["status"] = "uploaded"
                     
                     # Mark video as uploaded
