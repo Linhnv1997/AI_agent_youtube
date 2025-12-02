@@ -260,11 +260,15 @@ class YouTubeUploadWorkflow:
             lambda: asyncio.create_task(self.upload_daily_video())
         )
         
-        # Upload immediately on first run (for testing)
-        logger.info("🚀 Running first upload immediately...")
-        await self.upload_daily_video()
+        # Show next upload time
+        next_run = schedule.next_run()
+        if next_run:
+            logger.info(f"⏰ Next upload scheduled at: {next_run.strftime('%Y-%m-%d %H:%M:%S')}")
+        else:
+            logger.info(f"⏰ Upload will run daily at {hour:02d}:{minute:02d}")
         
-        # Keep running
+        # Keep running and wait for schedule
+        logger.info("💤 Waiting for scheduled time...")
         while True:
             schedule.run_pending()
             await asyncio.sleep(60)  # Check every minute

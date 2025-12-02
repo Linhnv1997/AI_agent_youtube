@@ -29,7 +29,7 @@ llm:
 
 # Video Configuration
 video:
-  folder_path: ./data/videos
+  folder_path: ./data/videos/part_3
   supported_formats:
     - mp4
     - avi
@@ -41,7 +41,7 @@ video:
 
 # Upload Schedule
 schedule:
-  upload_time: "09:00"  # HH:MM format (24-hour)
+  upload_time: "17:30"  # HH:MM format (24-hour) - 5:3 PM
   timezone: "Asia/Ho_Chi_Minh"
   
 # YouTube Settings

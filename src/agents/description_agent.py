@@ -211,7 +211,30 @@ Hãy tạo mô tả video:"""
             description = llm_output
             logger.warning(f"⚠️ Could not extract title from LLM output, using generated: {title[:50]}...")
         
+        # Clean up instruction text from description
+        description = self._clean_instruction_text(description)
+        
         return title[:100], description  # YouTube title limit
+    
+    def _clean_instruction_text(self, text: str) -> str:
+        """Remove instruction patterns like BƯỚC 1, BƯỚC 2 from description"""
+        import re
+        
+        # Patterns to remove
+        patterns = [
+            r'BƯỚC\s+\d+\s*[-–]\s*[^\n]+\n*',  # BƯỚC 1 - ...
+            r'^\s*BƯỚC\s+\d+[^\n]*\n*',         # BƯỚC 1 at start of line
+            r'Step\s+\d+\s*[-–]\s*[^\n]+\n*',   # Step 1 - ...
+        ]
+        
+        cleaned = text
+        for pattern in patterns:
+            cleaned = re.sub(pattern, '', cleaned, flags=re.IGNORECASE | re.MULTILINE)
+        
+        # Remove multiple blank lines
+        cleaned = re.sub(r'\n{3,}', '\n\n', cleaned)
+        
+        return cleaned.strip()
     
     def _generate_toeic_title(self, video_name: str) -> str:
         """Generate TOEIC style title from video name"""
